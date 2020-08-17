@@ -6,10 +6,7 @@
 
 function renderResults(jsonData) {
   let htmlTemplate = [];
-  console.log(jsonData);
-  console.log(jsonData.message.length);
   for(let i = 0; i < jsonData.message.length; i++) {
-    console.log(jsonData.message[i]);
     htmlTemplate.push(`
     <img src="${jsonData.message[i]}" alt="random dog image">
     `);
@@ -27,8 +24,10 @@ function getDogPics(num) {
 function handleDogFormSubmit() {
   $('.dog-images-form').submit(function(event) {
     event.preventDefault();
-    const requestNumDogs = $('.js-dog-images-val').val();
-    $('.js-dog-images-val').val('');
+    let requestNumDogs = $('.js-dog-images-val').val();
+    if (isNaN(requestNumDogs)) {
+      requestNumDogs = 3;
+    }
     getDogPics(requestNumDogs);
   });
 }
